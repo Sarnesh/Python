@@ -15,11 +15,10 @@ for items in all_content:
     
     date = items.find_all("span",{"class":"launchdate"})
     mission = items.find_all("span",{"class":"mission"})
-    launch_time = items.find_all("span",{"class":"strong"})
     data = items.find_all("div",{"class":"missiondata"})
+    desciption = items.find_all("div",{"class":"missdescrip"})
     
-    
-    for date, mission, launch_time, data in zip(date, mission, launch_time, data):
+    for date, mission, data, desciption in zip(date, mission, data, desciption):
         
         satellite_dictionary = {}
         
@@ -33,13 +32,14 @@ for items in all_content:
         except:
             pass
 
-        try:
-            satellite_dictionary["Launch Time"]=launch_time.text.replace("\n","").replace(" "," ")
-        except:
-            pass
         
         try:
-            satellite_dictionary["Data"]=data.text.replace("\n","").replace(" "," ")
+            satellite_dictionary["Data"]=data.text.replace('\n',"").replace("  "," ")
+        except:
+            pass
+
+        try:
+            satellite_dictionary["Description"]=desciption.text.replace('\n',"").replace("  "," ")
         except:
             pass
         
